@@ -183,6 +183,7 @@ class LiteLLMWrapper:
             content = response.choices[0].message.content
             if content is None:
                 print(f"Got null response from model. Full response: {response}")
+                return ""
             return content
         
         except Exception as e:

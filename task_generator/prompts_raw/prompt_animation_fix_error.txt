@@ -48,3 +48,30 @@ Requirements:
 7. If external assets (e.g., images, audio, video) are referenced, remove them.
 8. Preserve all original code that is not causing the reported error. Do not remove or alter any intentional elements unnecessarily.
 9. Follow best practices for code clarity and the current Manim version.
+10. Common Mistakes:
+{
+    1. NameError: name 'Plot' is not defined
+    2. ImportError: cannot import name 'Plot' from 'manim' (/Users/ghost/TheoremExplainAgent/.venv/lib/python3.12/site-packages/manim/__init__.py)
+    <FIX>
+    To fix this, you should use the Axes.plot method provided by Manim to generate the function graph. Here’s how to correct the code:
+
+        - Replace the Plot call with axes.plot, which takes a function and plots it over the specified x_range.
+        -Update the create_axes_and_plot method to return the axes with the plot as part of it.
+    </FIX>
+    <CODE meta="something like this to prevent them">
+    axes = Axes(x_range=[0, 5, 1], y_range=[0, 5, 1])
+    plot = axes.plot(lambda x: x**2, x_range=[0, 5], color=GREEN)
+    </CODE>
+    3. OSError: From: /Users/ghost/TheoremExplainAgent, could not find check.svg at either of these locations: 
+    ['check.svg', 'check.svg', 'check.svg.svg']
+    <FIX>
+    don't rely on local svg files keep the code independent from static resources 
+    </FIX>
+    4. UnboundLocalError: cannot access local variable 'Line' where it is not associated with a value
+    <FIX>
+    To eliminate any potential conflict with the Line class and ensure clarity, rename the variable Line to something descriptive and unique, such as connection_line. This avoids shadowing the Line class and makes the code more readable.
+    <FIX>
+}
+11. Never use the color BROWN use GRAY_BROWN or DARK_BROWN or GREY_BROWN or LIGHT_BROWN
+12. Never use '*SurroundRectangle*'
+13. Be very careful of newline characters in your response since some of it gives me KeyError: '\n    1'

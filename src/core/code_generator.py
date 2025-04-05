@@ -231,6 +231,8 @@ class CodeGenerator:
         """
 
         for attempt in range(max_retries):
+            if response_text is None:
+                return ""
             code_match = re.search(pattern, response_text, re.DOTALL)
             if code_match:
                 return code_match.group(1)

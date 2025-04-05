@@ -13,6 +13,29 @@ Scene Outline:
 Scene Technical Implementation:
 {scene_implementation}
 
+Common Mistakes:
+1. NameError: name 'Plot' is not defined
+2. ImportError: cannot import name 'Plot' from 'manim' (/Users/ghost/TheoremExplainAgent/.venv/lib/python3.12/site-packages/manim/__init__.py)
+<FIX>
+To fix this, you should use the Axes.plot method provided by Manim to generate the function graph. Here's how to correct the code:
+
+    - Replace the Plot call with axes.plot, which takes a function and plots it over the specified x_range.
+    - Update the create_axes_and_plot method to return the axes with the plot as part of it.
+</FIX>
+<CODE meta="something like this to prevent them">
+axes = Axes(x_range=[0, 5, 1], y_range=[0, 5, 1])
+plot = axes.plot(lambda x: x**2, x_range=[0, 5], color=GREEN)
+</CODE>
+3. OSError: From: /Users/ghost/TheoremExplainAgent, could not find check.svg at either of these locations: 
+['check.svg', 'check.svg', 'check.svg.svg']
+<FIX>
+don't rely on local svg files keep the code independent from static resources 
+</FIX>
+4. UnboundLocalError: cannot access local variable 'Line' where it is not associated with a value
+<FIX>
+To eliminate any potential conflict with the Line class and ensure clarity, rename the variable Line to something descriptive and unique, such as connection_line. This avoids shadowing the Line class and makes the code more readable.
+</FIX>
+
 **Code Generation Guidelines:**
 
 1.  **Scene Class:** Class name `Scene{scene_number}`, where `{scene_number}` is replaced by the scene number (e.g., `Scene1`, `Scene2`). The scene class should at least inherit from `VoiceoverScene`. However, you can add more Manim Scene classes on top of VoiceoverScene for multiple inheritance if needed.
@@ -57,6 +80,7 @@ You MUST generate the Python code in the following format (from <CODE> to </CODE
 <CODE>
 ```python
 from manim import *
+from manim import Scene, VGroup, Axes, Rectangle, MathTex, Create, Write, FadeOut  # Core classes and animations
 from manim import config as global_config
 from manim_voiceover import VoiceoverScene
 from src.utils.kokoro_voiceover import KokoroService # You MUST import like this as this is our custom voiceover service.
@@ -173,3 +197,8 @@ def label_triangle_sides(self, triangle, labels=["a", "b", "c"]):
             labeled_sides.add(tex)
         return labeled_sides
 ```
+
+4. Never use * or any other markdown symbol in voiceover
+5. Never use the color BROWN use GRAY_BROWN or DARK_BROWN or GREY_BROWN or LIGHT_BROWN
+6. Never use 'SurroundRectangle'
+7. Be very careful of newline characters in your response since some of it gives me KeyError: '\n    1'
